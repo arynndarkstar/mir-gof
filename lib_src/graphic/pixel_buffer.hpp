@@ -1,9 +1,7 @@
 #pragma once
-// PixelBuffer — direct surface editing
-// Software surface first (CPU). SDL2 (or other) can wrap/present it.
+// PixelBuffer — direct surface + blitters (C++ ref; ASM later for hot paths)
 
 #include <cstdint>
-#include <cstring>
 #include <algorithm>
 #include <cmath>
 
@@ -19,7 +17,6 @@ struct Color {
 };
 
 using Pixel32 = std::uint32_t;
-
 inline Pixel32 pack(Color c) {
     return (Pixel32(c.a) << 24) | (Pixel32(c.r) << 16) | (Pixel32(c.g) << 8) | Pixel32(c.b);
 }
@@ -121,7 +118,47 @@ public:
             if (e2 <= dx) { err += dx; y0 += sy; }
         }
     }
+    void rect_outline(int x, int y, int w, int h, Color c) {
+        if (w <= 0 || h <= 0) return;
+        hline(x, x + w - 1, y, c);
+        hline(x, x + w - 1, y + h - 1, c);
+        vline(x, y, y + h - 1, c);
+        vline(x + w - 1, y, y + h - 1, c);
+    }
+
     void blit(const PixelBuffer& src, int dst_x, int dst_y) {
+        blit_rect(src, 0, 0, src.width_, src.height_, dst_x, dst_y);
+    }
+    void blit_rect(const PixelBuffer& src, int sx, int sy, int sw, int sh, int dst_x, int dst_y) {
+        if (!data_ || !src.data_ || sw <= 0 || sh <= 0) return;
+        for (int row = 0; row < sh; ++row) {
+            const int src_y = sy + row, dy = dst_y + row;
+            if (src_y < 0 || src_y >= src.height_ || dy < 0 || dy >= height_) continue;
+            auto* drow = reinterpret_cast<Pixel32*>(data_ + dy * stride_);
+            auto* srow = reinterpret_cast<const Pixel32*>(src.data_ + src_y * src.stride_);
+            for (int col = 0; col < sw; ++col) {
+                const int src_x = sx + col, dx = dst_x + col;
+                if (src_x < 0 || src_x >= src.width_ || dx < 0 || dx >= width_) continue;
+                drow[dx] = srow[src_x];
+            }
+        }
+    }
+    void blit_colorkey(const PixelBuffer& src, int dst_x, int dst_y, Color key) {
+        if (!data_ || !src.data_) return;
+        const Pixel32 k = pack(key);
+        for (int sy = 0; sy < src.height_; ++sy) {
+            const int dy = dst_y + sy;
+            if (dy < 0 || dy >= height_) continue;
+            auto* drow = reinterpret_cast<Pixel32*>(data_ + dy * stride_);
+            auto* srow = reinterpret_cast<const Pixel32*>(src.data_ + sy * src.stride_);
+            for (int sx = 0; sx < src.width_; ++sx) {
+                const int dx = dst_x + sx;
+                if (dx < 0 || dx >= width_) continue;
+                if (srow[sx] != k) drow[dx] = srow[sx];
+            }
+        }
+    }
+    void blit_blend(const PixelBuffer& src, int dst_x, int dst_y) {
         if (!data_ || !src.data_) return;
         for (int sy = 0; sy < src.height_; ++sy) {
             const int dy = dst_y + sy;
@@ -131,11 +168,18 @@ public:
             for (int sx = 0; sx < src.width_; ++sx) {
                 const int dx = dst_x + sx;
                 if (dx < 0 || dx >= width_) continue;
-                drow[dx] = srow[sx];
+                const Pixel32 s = srow[sx], d = drow[dx];
+                auto avg = [](Pixel32 a, Pixel32 b, int shift) {
+                    return (((a >> shift) & 0xFF) + ((b >> shift) & 0xFF)) / 2;
+                };
+                drow[dx] = (Pixel32(avg(s,d,24)) << 24) | (Pixel32(avg(s,d,16)) << 16)
+                         | (Pixel32(avg(s,d,8)) << 8) | Pixel32(avg(s,d,0));
             }
         }
     }
 };
+
+// ASM can replace hot loops later; C++ is the reference default.
 
 } // namespace graphic
 } // namespace mir
