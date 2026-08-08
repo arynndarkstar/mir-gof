@@ -1,44 +1,44 @@
 # MIR Design-System Checklist
 **Repo:** arynndarkstar/mir-gof  
-**Canonical source (current):** `lib_src/gof/` + `lib_src/idioms/`  
 **Last updated:** 2026-08-08
 
 ---
 
 ## MAIN TASK (now)
-**Bootstrap the MIR class-design system + get IO live ASAP.**
+**Bootstrap MIR class-design system + IO ASAP — graphic path scaffolded.**
 
 Where we are:
-- Classic GoF catalog is essentially complete (raw + spartan where it matters).
-- Layout is under `lib_src/`; pure GoF stays pristine; mergers live separately.
-- Console MainLoop exists. Graphic / pixel-buffer / SDL path is **next major IO thread** (not this one).
-- Idioms are secondary; only high-value need-driven set is present.
+- Classic GoF complete (raw + spartan where useful).
+- Graphic option-module DLLs under `plugins/`; PixelBuffer in `lib_src/graphic/`.
+- Console MainLoop exists; graphic_sdl2 skeleton ready for SDL2 tutor/build.
 
 ---
 
 ## CURRENT TODO (in progress / just finished)
 
-### After-Action — Spartan continue + Advanced/mergers complete
-- [x] Additional Spartan: Builder, Object Pool (fixed capacity)
-- [x] Advanced complete: Type-Erased Observer, CRTP State Machine, Policy-Strategy documented + multi-policy host
-- [x] `advanced/README.md` — lineage (GoF, Alexandrescu/Loki, CRTP/Coplien, type erasure, Wikibooks status)
-- [x] Skipped Spartan for Flyweight / Visitor / Interpreter (low value as minimalist forms)
+### After-Action — Graphic plugin scaffold + PixelBuffer
+- [x] `lib_src/graphic/pixel_buffer.hpp` — clear, put, line, h/v line, fill_rect, blit, bind
+- [x] `plugins/graphic_sdl2/` — SDL2 MainLoop DLL skeleton (window + present + demo frame)
+- [x] `plugins/pixel_buffer/` — notes (impl in lib_src)
+- [x] UML graphic path
+- [x] Idioms README → GoF-style “what is what” groups
 
 **AAR notes**
-- Pure GoF stays pristine; spartan beside raw.
-- Mergers live only under `advanced/`.
-- Knowledge sources are established literature, not invention (see advanced/README).
-- “More C++ Idioms” = first community idiom *group/catalog*; incomplete (Policy-based still TODO).
-- User rearranges after account reset.
+- Graphics = MIR-exclusive option-module DLLs under `plugins/`.
+- PixelBuffer = pure CPU surface; SDL2 binds + presents.
+- Build: `-DMIR_HAS_SDL2 -lSDL2` for window; without = software-only fallback.
+- Tutor for SDL2 later (you).
+- Dopamine: first window + draw-line path is scaffolded.
 
 ---
 
 ## NEXT TODO (immediate)
 
-1. **Keep GoF surface pristine** — any new pure pattern goes into the correct classic folder; no mergers mixed in.
-2. **Capture future ideation** in this checklist so AARs and upcoming work can be commented strongly.
-3. **Stand by for pixel-buffer / SDL / SDL2 thread** — user will open that separately.
-4. **DLL test-bed + AI seat** — sketch Adapt / Facade responsibilities when that thread opens.
+1. **Build / run graphic_sdl2** with SDL2 on your machine.
+2. **Expand blitters / clip / alpha** on PixelBuffer as needed.
+3. **Mouse / key → Observer** from SDL2 events.
+4. **DLL test-bed + AI seat** when ready.
+5. Keep pure GoF pristine; mergers only under `advanced/`.
 
 ---
 
@@ -46,58 +46,32 @@ Where we are:
 
 | Task | State | Notes |
 |------|--------|------|
-| Classic GoF catalog | **done** | All 23 + practical extras |
-| Spartan pairs | **mostly done** | Builder + Object Pool added; Flyweight/Visitor/Interpreter skipped |
-| Advanced / mergers dir | **complete for now** | Type-Erased Strategy/Observer, Command+Memento, Policy-Strategy, CRTP State Machine |
-| Idioms expansion | **expanded** | ScopeGuard, Pimpl, NonCopyable, Copy-and-swap, EBO, Traits |
-| Graphic window + pixel buffer | **next major** | Other thread |
-| Mouse / key secondary input | queued | After pixel-buffer |
-| Plugin discovery / settings load | open | |
-| DLL test-bed for MIR | future | |
-| AI seat (Adapt / Facade / ?) | future | |
-| SOLID mapping notes | open | |
-| Refactor-in-place examples | open | |
-| Sprite contact-sheet generator | future | Ultima 5 / SSI Wizard’s Crown style |
+| Classic GoF | **done** | |
+| Spartan pairs | **mostly done** | |
+| Advanced / mergers | **complete for now** | |
+| Idioms | **what-is-what map** | ownership / static-poly / typing / assignment |
+| Graphic + PixelBuffer | **scaffolded** | graphic_sdl2 + lib_src/graphic |
+| Mouse / key | queued | |
+| Plugin discovery | open | |
+| DLL test-bed | future | |
+| AI seat | future | Adapt / Facade |
+| Sprite contact-sheet | future | Ultima 5 / Wizard’s Crown style |
 
 ---
 
 ## FUTURE / LONG-TERM
 
-### Design system
-- Expand idioms only when a concrete MIR need appears  
-  Better sources: **Alexandrescu — Modern C++ Design**, modern CRTP/type-erasure/policy material
-- SOLID + refactor-in-place notes
-
-### IO / runtime
-- Graphic window + pixel-buffer abstraction (SDL / SDL2 path)
-- Mouse / key secondary input
-- Sound-out abstraction
-- Full plugin discovery + settings-driven loading
-- DLL test-bed for MIR
-
-### AI seat
-- Adapt / Facade (and possibly Strategy / Proxy) for the AI provider station
-- Mir stays PEBCAK operator; AI seat is a replaceable station
-
-### Creative / tooling
-- Generate image contact sheet for sprite characters (Ultima 5 / SSI Wizard’s Crown style tiles)
-
-### Process
-- Checklist = Main → Current/AAR → Next → Secondary → Future
-- Strong commentary welcome on upcoming, AAR, and ideation
+- SDL2 tutor (you), richer blitters, sound-out
+- DLL test-bed for MIR hot-swap stations
+- AI seat Adapt/Facade boundary
+- Sprite contact-sheet generator (tile icons)
+- SOLID mapping notes
 
 ---
 
-## SOLID (quick answer)
+## Rules
 
-**SOLID is a thing** — five principles (SRP, OCP, LSP, ISP, DIP). Short mapping later; not blocking IO.
-
----
-
-## Rules of engagement
-
-- Pure GoF folders = pristine classic (raw / spartan only).
-- Mergers only under `advanced/`.
-- Idioms secondary until needed.
-- Checklist is the living AAR + todo surface.
-- Pixel-buffer / SDL = other thread when you open it.
+- Pure GoF = pristine classic only.
+- Mergers under `advanced/` only.
+- Graphics as option-module DLLs under `plugins/`.
+- Checklist = Main → Current/AAR → Next → Secondary → Future.
