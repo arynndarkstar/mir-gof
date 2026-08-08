@@ -1,5 +1,5 @@
 #pragma once
-// PixelBuffer — direct surface + blitters (C++ ref; ASM later for hot paths)
+// PixelBuffer — surface tools (always available; graphic plugin not required)
 
 #include <cstdint>
 #include <algorithm>
@@ -64,6 +64,7 @@ public:
     int height() const { return height_; }
     int stride() const { return stride_; }
     void* data() { return data_; }
+    const void* data() const { return data_; }
     bool in_bounds(int x, int y) const {
         return x >= 0 && y >= 0 && x < width_ && y < height_;
     }
@@ -179,7 +180,7 @@ public:
     }
 };
 
-// ASM can replace hot loops later; C++ is the reference default.
+// See draw_extras.hpp for circle / sprite_drop / rotate.
 
 } // namespace graphic
 } // namespace mir
