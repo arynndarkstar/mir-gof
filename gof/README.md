@@ -10,45 +10,52 @@ in two flavours:
 
 ```
 gof/
-├── creational/     Factory Method, Abstract Factory, (Builder/Prototype/Singleton later)
-├── structural/     Adapter, Bridge, Composite, Decorator, Facade, Flyweight, Proxy
-├── behavioral/     Strategy, Observer, Command, (State, Memento, Visitor …)
-├── advanced/       Pattern mergers & evolved forms
-│                   (Type-Erased Strategy, Policy-Strategy, CRTP State Machine …)
+├── creational/     Factory Method, Abstract Factory, Builder, …
+├── structural/     Adapter, Facade, Bridge, Composite, Decorator, …
+├── behavioral/     Strategy, Observer, Command, State, Memento, Null Object, …
+├── advanced/       Type-Erased Strategy, Command+Memento, …
 ├── idioms/
-│   ├── raw/        Full modern idioms (ScopeGuard, Pimpl, Type Erasure …)
-│   └── spartan/    Same concepts stripped for constrained environments
-└── common/         Shared CRTP bases, type-erasure helpers, policy tags
+│   ├── raw/        ScopeGuard, Pimpl, …
+│   └── spartan/    Same concepts stripped
+└── common/         CRTP, Type Erasure helpers
 ```
 
-## Current Status (bootstrap)
+## Current Status
 
 | Pattern / Helper              | Raw | Spartan | Notes |
 |-------------------------------|-----|---------|-------|
 | Strategy                      | ✓   | ✓       | AI providers, render backends |
 | Factory Method / Abstract F.  | ✓   | ✓       | Plugin station creation |
+| Builder                       | ✓   | –       | Settings / bootstrap objects |
 | Observer                      | ✓   | ✓       | Input events, state deltas |
-| Command                       | ✓   | ✓       | Operator actions (+ undo hook) |
+| Command                       | ✓   | ✓       | Operator actions |
+| State                         | ✓   | ✓       | StateEngine, modal modes |
+| Memento                       | ✓   | ✓       | Snapshots / undo |
+| Null Object                   | ✓   | ✓       | Missing plugins / optional collabs |
+| Adapter                       | ✓   | ✓       | Pixel-buf / window / platform |
+| Facade                        | ✓   | ✓       | Subsystem entry points |
 | CRTP                          | ✓   | ✓       | common/ |
 | Type Erasure helpers          | ✓   | –       | common/type_erasure.hpp |
 | Type-Erased Strategy (adv)    | ✓   | –       | advanced/ |
+| Command + Memento (adv)       | ✓   | –       | advanced/ |
 | ScopeGuard                    | ✓   | ✓       | idioms/ |
 
 ## Design Rules
 
-1. Every pattern is a *working* header (+ minimal conceptual example in comments).
+1. Every pattern is a *working* header (problem → solution → MIR use-case).
 2. Patterns that MIR itself uses get first-class treatment.
 3. Advanced folder holds *merged* or *evolved* forms.
-4. Raw vs Spartan pairs share the same conceptual interface where possible so
-   a design can switch density without rewriting call sites.
+4. Raw vs Spartan pairs share the same conceptual interface where possible.
 5. UML sketches live in `../docs/uml/`.
+6. Living checklist: `../docs/CHECKLIST.md`.
 
-## Immediate next targets
+## Next targets
 
-- State + Memento (pair with Command for undo)
-- Adapter / Facade for platform pixel-buffer & sound out
 - Policy-based Strategy merger
 - Pimpl idiom (raw + spartan)
+- Type-Erased Observer
+- Bridge / Composite / Decorator (as needed for graphic hierarchy)
+- Object Pool
 
 This library is the foundation for the “class design system” and
 “refactoring in place” mentality of MIR.
