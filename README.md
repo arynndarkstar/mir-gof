@@ -13,10 +13,10 @@ Everything else (MainLoop, AI provider, StateEngine) is discovered at runtime vi
    - [ ] Mouse / key secondary input
 
 2. **Class Design System**
-   - Living GoF + C++ idioms library (`gof/`)
-   - Raw (modern) and Spartan (minimal) forms
-   - Advanced pattern mergers
-   - UML + refactor-in-place mentality
+   - Living GoF + C++ idioms library (`gof/`) — Strategy, Factory, Observer, Command, Type Erasure, ScopeGuard (raw + spartan)
+   - Advanced mergers started (Type-Erased Strategy)
+   - UML sketches in `docs/uml/`
+   - Foundation for “refactoring in place”
 
 3. **Grok IO path**
    - Structure ready → Grok can start impacting source
