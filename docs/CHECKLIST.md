@@ -1,5 +1,5 @@
 # MIR + GoF Library — Living Executive Checklist
-**Last updated:** 2026-08-08 (wave 2 complete)  
+**Last updated:** 2026-08-08 (wave 3 — bulk missing patterns)  
 **Repo:** arynndarkstar/mir-gof  
 **Goal:** Complete class-design system + IO ASAP while maximizing design density.
 
@@ -11,37 +11,37 @@
 - [x] Factory Method (raw + spartan)
 - [x] Abstract Factory (raw + spartan)
 - [x] Builder
-- [ ] Prototype
+- [x] Prototype
 - [ ] Singleton (low priority — prefer discovery)
-- [ ] Object Pool
+- [x] Object Pool
 
 ### Structural
-- [x] Adapter          ← high (pixel-buf / window / platform)
-- [ ] Bridge
-- [ ] Composite
-- [ ] Decorator
-- [x] Facade           ← high (platform façade)
+- [x] Adapter
+- [x] Bridge
+- [x] Composite
+- [x] Decorator
+- [x] Facade
 - [ ] Flyweight
-- [ ] Proxy
+- [x] Proxy
 
 ### Behavioral
 - [x] Strategy (raw + spartan + type-erased)
 - [x] Observer (raw + spartan)
 - [x] Command (raw + spartan)
-- [x] State            ← high (StateEngine station)
-- [x] Memento          ← high (Command undo)
-- [x] Null Object      ← high (missing plugins / optional stations)
-- [ ] Chain of Responsibility
+- [x] State (raw + spartan)
+- [x] Memento (raw + spartan)
+- [x] Null Object (raw + spartan)
+- [x] Chain of Responsibility
 - [ ] Interpreter
-- [ ] Iterator
+- [x] Iterator
 - [ ] Mediator
-- [ ] Template Method
+- [x] Template Method
 - [ ] Visitor
 
 ### Advanced / Mergers
 - [x] Type-Erased Strategy
 - [x] Command + Memento
-- [ ] Policy-based Strategy
+- [x] Policy-based Strategy
 - [ ] CRTP State Machine
 - [ ] Type-Erased Observer
 
@@ -49,7 +49,7 @@
 - [x] ScopeGuard (raw + spartan)
 - [x] CRTP
 - [x] Type Erasure helpers
-- [ ] Pimpl (raw + spartan)
+- [x] Pimpl (raw + spartan)
 - [ ] Non-copyable / Move-only helpers
 
 ---
@@ -68,41 +68,34 @@
 - [x] gof/ living catalog structure
 - [x] UML for core stations
 - [x] UML for core GoF patterns
-- [x] UML for State / Memento / Adapter / Facade / Builder / Null Object
+- [x] UML for wave-2 patterns
 - [ ] SOLID mapping notes
 - [ ] Refactor-in-place examples
 
 ---
 
-## C. Immediate Execution Wave (wave 2 — DONE)
+## C. Waves Completed
 
-1. [x] **State** (raw + spartan)
-2. [x] **Memento** (raw + spartan)
-3. [x] **Command + Memento** advanced merger
-4. [x] **Null Object** (raw + spartan)
-5. [x] **Adapter** (raw + spartan)
-6. [x] **Facade** (raw + spartan)
-7. [x] **Builder** (raw)
-8. [x] Update README status tables
-9. [x] New UML sketches
-10. [x] Push all to git
+**Wave 1** — Strategy, Factory, Observer, Command, Type Erasure, ScopeGuard  
+**Wave 2** — State, Memento, Null Object, Adapter, Facade, Builder, Command+Memento  
+**Wave 3** — Pimpl, Prototype, Object Pool, Bridge, Composite, Decorator, Proxy, Iterator, Template Method, Chain of Responsibility, Policy-Strategy  
 
 ---
 
-## D. Later / Lower Priority
-- Iterator, Template Method, Visitor
-- Bridge, Composite, Decorator, Proxy, Flyweight
-- Object Pool, Prototype, Singleton
-- Full CMake / build system
-- Windows dynlib
-- Sound out abstraction
+## D. Still Open (lower priority / next)
+
+- Flyweight, Interpreter, Mediator, Visitor, Singleton
+- CRTP State Machine, Type-Erased Observer
+- Non-copyable helpers
 - Graphic window + pixel buffer station
+- Mouse / key input
+- SOLID notes + refactor examples
+- CMake / build system
 
 ---
 
 ## Rules of Engagement
-- Every new pattern = working header (raw preferred, spartan when meaningful)
-- Header comment = problem → solution → MIR use-case
+- Every new pattern = working header (problem → solution → MIR use-case)
 - Keep raw / spartan conceptual interface aligned
 - Push early, push often
 - Prefer patterns that unlock the graphic IO path or StateEngine
