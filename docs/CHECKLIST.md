@@ -18,18 +18,16 @@ Where we are:
 
 ## CURRENT TODO (in progress / just finished)
 
-### After-Action — Wave “classic GoF fill + lib_src”
-- [x] Remaining classic patterns landed (Flyweight, Mediator, Visitor, Interpreter, Singleton)
-- [x] `lib_src/gof/{creational,structural,behavioral,advanced,common}`
-- [x] `lib_src/idioms/{raw,spartan}` (minimal)
-- [x] UML-in-Markdown tutorial (`docs/tutor/markdown/how_to_uml_in_md.md`)
-- [x] Checklist rewritten for rapid-fire use
+### After-Action — Spartan pass + Idioms expansion
+- [x] Spartan pairs added: Bridge, Decorator, Proxy, Composite, Chain of Responsibility, Template Method, Iterator, Prototype, Mediator
+- [x] Idioms expanded: NonCopyable/MoveOnly (raw+spartan), Copy-and-swap, EBO helper, Traits skeleton
+- [x] `lib_src/idioms/README.md` stance documented
 
 **AAR notes**
-- Pure GoF folders stay pristine (normal / spartan only).
-- Mergers / advanced hybrids stay out of the pure GoF trees (own dir).
-- Boost avoided for now.
-- User will rearrange after Grok account reset; current tree is the working surface until then.
+- Pure GoF remains pristine; spartan forms sit beside raw in the same classic folders.
+- Mergers stay out of pure GoF trees.
+- Idioms still secondary — only high-value, need-driven additions.
+- User rearranges after account reset; this tree is the working surface until then.
 
 ---
 
@@ -47,9 +45,9 @@ Where we are:
 | Task | State | Notes |
 |------|--------|------|
 | Classic GoF catalog | **done** | All 23 + practical extras (Null Object, Object Pool) |
-| Spartan pairs | partial | Present where constrained/runtime paths need them |
+| Spartan pairs | **mostly done** | Core + structural/behavioral pairs added this pass |
 | Advanced / mergers dir | open | Type-Erased Strategy, Command+Memento, Policy-Strategy already exist; keep them away from pure GoF |
-| Idioms expansion | deferred | Only ScopeGuard + Pimpl + CRTP/Type-Erasure; wait for concrete need |
+| Idioms expansion | **expanded** | + NonCopyable/MoveOnly, Copy-and-swap, EBO, Traits; still secondary |
 | Graphic window + pixel buffer | **next major** | Other thread |
 | Mouse / key secondary input | queued | After pixel-buffer |
 | Plugin discovery / settings load | open | |
