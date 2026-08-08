@@ -10,13 +10,14 @@ in two flavours:
 
 ```
 gof/
-├── creational/     Factory Method, Abstract Factory, Builder, …
-├── structural/     Adapter, Facade, Bridge, Composite, Decorator, …
-├── behavioral/     Strategy, Observer, Command, State, Memento, Null Object, …
-├── advanced/       Type-Erased Strategy, Command+Memento, …
+├── creational/     Factory, Abstract Factory, Builder, Prototype, Object Pool
+├── structural/     Adapter, Bridge, Composite, Decorator, Facade, Proxy
+├── behavioral/     Strategy, Observer, Command, State, Memento, Null Object,
+│                   Chain of Responsibility, Iterator, Template Method
+├── advanced/       Type-Erased Strategy, Command+Memento, Policy-Strategy
 ├── idioms/
-│   ├── raw/        ScopeGuard, Pimpl, …
-│   └── spartan/    Same concepts stripped
+│   ├── raw/        ScopeGuard, Pimpl
+│   └── spartan/    ScopeGuard, Pimpl
 └── common/         CRTP, Type Erasure helpers
 ```
 
@@ -24,38 +25,39 @@ gof/
 
 | Pattern / Helper              | Raw | Spartan | Notes |
 |-------------------------------|-----|---------|-------|
-| Strategy                      | ✓   | ✓       | AI providers, render backends |
-| Factory Method / Abstract F.  | ✓   | ✓       | Plugin station creation |
-| Builder                       | ✓   | –       | Settings / bootstrap objects |
-| Observer                      | ✓   | ✓       | Input events, state deltas |
-| Command                       | ✓   | ✓       | Operator actions |
-| State                         | ✓   | ✓       | StateEngine, modal modes |
-| Memento                       | ✓   | ✓       | Snapshots / undo |
-| Null Object                   | ✓   | ✓       | Missing plugins / optional collabs |
-| Adapter                       | ✓   | ✓       | Pixel-buf / window / platform |
-| Facade                        | ✓   | ✓       | Subsystem entry points |
-| CRTP                          | ✓   | ✓       | common/ |
-| Type Erasure helpers          | ✓   | –       | common/type_erasure.hpp |
-| Type-Erased Strategy (adv)    | ✓   | –       | advanced/ |
-| Command + Memento (adv)       | ✓   | –       | advanced/ |
+| Strategy                      | ✓   | ✓       | + type-erased + policy |
+| Factory Method / Abstract F.  | ✓   | ✓       | |
+| Builder                       | ✓   | –       | |
+| Prototype                     | ✓   | –       | |
+| Object Pool                   | ✓   | –       | |
+| Observer                      | ✓   | ✓       | |
+| Command                       | ✓   | ✓       | + Memento merger |
+| State                         | ✓   | ✓       | |
+| Memento                       | ✓   | ✓       | |
+| Null Object                   | ✓   | ✓       | |
+| Chain of Responsibility       | ✓   | –       | |
+| Iterator                      | ✓   | –       | |
+| Template Method               | ✓   | –       | |
+| Adapter                       | ✓   | ✓       | |
+| Bridge                        | ✓   | –       | |
+| Composite                     | ✓   | –       | |
+| Decorator                     | ✓   | –       | |
+| Facade                        | ✓   | ✓       | |
+| Proxy                         | ✓   | –       | |
+| Pimpl                         | ✓   | ✓       | idioms/ |
 | ScopeGuard                    | ✓   | ✓       | idioms/ |
+| CRTP / Type Erasure           | ✓   | –       | common/ |
+| Policy-based Strategy         | ✓   | –       | advanced/ |
+
+## Still open
+Flyweight, Interpreter, Mediator, Visitor, Singleton, CRTP State Machine, Type-Erased Observer
 
 ## Design Rules
-
-1. Every pattern is a *working* header (problem → solution → MIR use-case).
-2. Patterns that MIR itself uses get first-class treatment.
-3. Advanced folder holds *merged* or *evolved* forms.
-4. Raw vs Spartan pairs share the same conceptual interface where possible.
-5. UML sketches live in `../docs/uml/`.
-6. Living checklist: `../docs/CHECKLIST.md`.
-
-## Next targets
-
-- Policy-based Strategy merger
-- Pimpl idiom (raw + spartan)
-- Type-Erased Observer
-- Bridge / Composite / Decorator (as needed for graphic hierarchy)
-- Object Pool
+1. Working header with problem → solution → MIR use-case.
+2. MIR-used patterns get first-class treatment.
+3. Advanced folder = mergers / evolved forms.
+4. Raw / Spartan pairs stay conceptually aligned.
+5. UML in `../docs/uml/`. Living checklist in `../docs/CHECKLIST.md`.
 
 This library is the foundation for the “class design system” and
 “refactoring in place” mentality of MIR.
