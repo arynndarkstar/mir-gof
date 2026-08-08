@@ -1,5 +1,5 @@
 # MIR + GoF Library — Living Executive Checklist
-**Last updated:** 2026-08-08  
+**Last updated:** 2026-08-08 (wave 2 complete)  
 **Repo:** arynndarkstar/mir-gof  
 **Goal:** Complete class-design system + IO ASAP while maximizing design density.
 
@@ -10,17 +10,17 @@
 ### Creational
 - [x] Factory Method (raw + spartan)
 - [x] Abstract Factory (raw + spartan)
-- [ ] Builder
+- [x] Builder
 - [ ] Prototype
 - [ ] Singleton (low priority — prefer discovery)
 - [ ] Object Pool
 
 ### Structural
-- [ ] Adapter          ← high (pixel-buf / window / platform)
+- [x] Adapter          ← high (pixel-buf / window / platform)
 - [ ] Bridge
 - [ ] Composite
 - [ ] Decorator
-- [ ] Facade           ← high (platform façade)
+- [x] Facade           ← high (platform façade)
 - [ ] Flyweight
 - [ ] Proxy
 
@@ -28,9 +28,9 @@
 - [x] Strategy (raw + spartan + type-erased)
 - [x] Observer (raw + spartan)
 - [x] Command (raw + spartan)
-- [ ] State            ← high (StateEngine station)
-- [ ] Memento          ← high (Command undo)
-- [ ] Null Object      ← high (missing plugins / optional stations)
+- [x] State            ← high (StateEngine station)
+- [x] Memento          ← high (Command undo)
+- [x] Null Object      ← high (missing plugins / optional stations)
 - [ ] Chain of Responsibility
 - [ ] Interpreter
 - [ ] Iterator
@@ -40,7 +40,7 @@
 
 ### Advanced / Mergers
 - [x] Type-Erased Strategy
-- [ ] Command + Memento
+- [x] Command + Memento
 - [ ] Policy-based Strategy
 - [ ] CRTP State Machine
 - [ ] Type-Erased Observer
@@ -68,26 +68,24 @@
 - [x] gof/ living catalog structure
 - [x] UML for core stations
 - [x] UML for core GoF patterns
-- [ ] UML for State / Memento / Adapter / Facade
+- [x] UML for State / Memento / Adapter / Facade / Builder / Null Object
 - [ ] SOLID mapping notes
 - [ ] Refactor-in-place examples
 
 ---
 
-## C. Immediate Execution Wave (next 2 h)
+## C. Immediate Execution Wave (wave 2 — DONE)
 
-Priority order for maximum value + density:
-
-1. [ ] **State** (raw + spartan)
-2. [ ] **Memento** (raw + spartan)
-3. [ ] **Command + Memento** advanced merger
-4. [ ] **Null Object** (raw + spartan)
-5. [ ] **Adapter** (raw + spartan) — platform / pixel-buffer oriented
-6. [ ] **Facade** (raw + spartan)
-7. [ ] **Builder** (raw)
-8. [ ] Update README status tables
-9. [ ] New UML sketches
-10. [ ] Push all to git
+1. [x] **State** (raw + spartan)
+2. [x] **Memento** (raw + spartan)
+3. [x] **Command + Memento** advanced merger
+4. [x] **Null Object** (raw + spartan)
+5. [x] **Adapter** (raw + spartan)
+6. [x] **Facade** (raw + spartan)
+7. [x] **Builder** (raw)
+8. [x] Update README status tables
+9. [x] New UML sketches
+10. [x] Push all to git
 
 ---
 
@@ -98,6 +96,7 @@ Priority order for maximum value + density:
 - Full CMake / build system
 - Windows dynlib
 - Sound out abstraction
+- Graphic window + pixel buffer station
 
 ---
 
